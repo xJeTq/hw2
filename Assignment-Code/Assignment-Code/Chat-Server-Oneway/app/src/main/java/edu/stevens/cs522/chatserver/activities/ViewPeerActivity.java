@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.activity.ComponentActivity;
 import androidx.activity.EdgeToEdge;
@@ -45,6 +46,14 @@ public class ViewPeerActivity extends ComponentActivity {
         }
 
         // TODO Set the fields of the UI
+        TextView userNameView = findViewById(R.id.view_user_name);
+        TextView timestampView = findViewById(R.id.view_timestamp);
+        TextView locationView = findViewById(R.id.view_location);
+
+        userNameView.setText(getString(R.string.view_user_name, peer.name));
+        String formattedTimestamp = formatTimestamp(peer.timestamp);
+        timestampView.setText(getString(R.string.view_timestamp, formattedTimestamp));
+        locationView.setText(getString(R.string.view_location, peer.latitude, peer.longitude));
 
     }
 

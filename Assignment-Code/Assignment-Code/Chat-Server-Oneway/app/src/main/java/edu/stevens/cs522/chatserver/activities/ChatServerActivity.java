@@ -10,6 +10,7 @@
  **********************************************************************/
 package edu.stevens.cs522.chatserver.activities;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -19,6 +20,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.activity.ComponentActivity;
 import androidx.activity.EdgeToEdge;
@@ -73,6 +76,10 @@ public class ChatServerActivity extends ComponentActivity implements OnClickList
      * TODO: Declare a listview for messages, and an adapter for displaying messages.
      */
 
+    private ListView messagesList;
+
+    private ArrayAdapter<Message> messagesAdapter;
+
     /*
      * End Todo
      */
@@ -123,9 +130,12 @@ public class ChatServerActivity extends ComponentActivity implements OnClickList
 
         // TODO: Initialize the list view with the array adapter.
         // Use android.R.layout.simple_list_item_1 for list item layout
+        messagesList = findViewById(R.id.message_list);
+        messagesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, messages);
+        messagesList.setAdapter(messagesAdapter);
 
         // TODO bind the button for "next" to this activity as listener
-
+        findViewById(R.id.next).setOnClickListener(this);
 
     }
 
@@ -217,7 +227,8 @@ public class ChatServerActivity extends ComponentActivity implements OnClickList
             /*
              * TODO: Add message to the display.
              */
-
+            messages.add(message);
+            messagesAdapter.notifyDataSetChanged();
             /*
              * End Todo
              */
@@ -269,7 +280,7 @@ public class ChatServerActivity extends ComponentActivity implements OnClickList
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         // TODO inflate a menu with PEERS option
-
+        getMenuInflater().inflate(R.menu.chatserver_menu, menu);
 
         return true;
     }
@@ -281,6 +292,9 @@ public class ChatServerActivity extends ComponentActivity implements OnClickList
         if (itemId == R.id.peers) {
             // TODO PEERS provide the UI for viewing list of peers
             // The list of peers must be passed as an argument to the subactivity..
+            Intent intent = new Intent(this, ViewPeersActivity.class);
+            intent.putParcelableArrayListExtra(ViewPeersActivity.PEERS_KEY, peers);
+            startActivity(intent);
 
             return true;
 

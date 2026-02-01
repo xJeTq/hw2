@@ -92,8 +92,13 @@ public class ChatClientActivity extends ComponentActivity implements OnClickList
 
 		// TODO initialize the UI.
 
+        destinationAddr = findViewById(R.id.destination_addr);
+        chatName = findViewById(R.id.chat_name);
+        messageText = findViewById(R.id.message_text);
 
-		// End todo
+        findViewById(R.id.send_button).setOnClickListener(this);
+
+        // End todo
 
 		try {
 
@@ -138,6 +143,9 @@ public class ChatClientActivity extends ComponentActivity implements OnClickList
 
 			// TODO get data from UI (no-op if chat name is blank)
 
+            destAddr = destinationAddr.getText().toString().trim();
+            chatNameText = chatName.getText().toString().trim();
+            text = messageText.getText().toString().trim();
 
 			// End todo
 
